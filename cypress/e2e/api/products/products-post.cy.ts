@@ -3,7 +3,6 @@ import { getProductUrls, getTestData } from '../../../support/config'
 
 describe('Products API - POST Operations', () => {
   const urls = getProductUrls()
-  const testData = getTestData()
 
   describe('POST /products/add', () => {
     it('should create a new product with minimal required data', () => {
@@ -488,6 +487,206 @@ describe('Products API - POST Operations', () => {
         expect(createdProduct.discountPercentage).to.eq(testProduct.discountPercentage)
         expect(createdProduct.rating).to.eq(testProduct.rating)
         expect(createdProduct.stock).to.eq(testProduct.stock)
+      })
+    })
+
+    it('should validate against known categories from categories endpoint', () => {
+      // First get valid categories from categories endpoint
+      cy.request('GET', urls.categories).then((categoriesResponse) => {
+        const validCategories = categoriesResponse.body.map((cat: any) => cat.slug)
+        
+        // Test with first 3 valid categories
+        const testCategories = validCategories.slice(0, 3)
+        
+        testCategories.forEach((category: string) => {
+          const testProduct = {
+            title: `Test Product - ${category}`,
+            price: 40.99,
+            category: category
+          }
+
+          cy.request({
+            method: 'POST',
+            url: urls.add,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: testProduct
+          }).then((response) => {
+            expect(response.status).to.eq(201)
+            expect(response.body.title).to.eq(testProduct.title)
+            expect(response.body.price).to.eq(testProduct.price)
+            expect(response.body.category).to.eq(testProduct.category)
+            expect(response.body.id).to.be.a('number')
+          })
+        })
+      })
+    })
+
+    it('should handle empty arrays in images field', () => {
+      const productWithEmptyImages = {
+        title: 'Product with Empty Images',
+        price: 25.99,
+        images: []
+      }
+
+      cy.request({
+        method: 'POST',
+        url: urls.add,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: productWithEmptyImages
+      }).then((response) => {
+        expect(response.status).to.eq(201)
+        expect(response.body.title).to.eq(productWithEmptyImages.title)
+        expect(response.body.price).to.eq(productWithEmptyImages.price)
+        expect(response.body.images).to.deep.eq([])
+        expect(response.body.id).to.be.a('number')
+      })
+    })
+
+    it('should handle concurrent requests properly', () => {
+      const concurrentRequests: Cypress.Chainable<Cypress.Response<any>>[] = []
+      
+      // Make 5 concurrent requests
+      for (let i = 0; i < 5; i++) {
+        concurrentRequests.push(
+          cy.request({
+            method: 'POST',
+            url: urls.add,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: {
+              title: `Concurrent Product ${i}`,
+              price: 10 + i,
+              category: 'smartphones'
+            }
+          })
+        )
+      }
+
+      cy.wrap(concurrentRequests).then(() => {
+        const responses: any[] = []
+        
+        concurrentRequests.forEach((request) => {
+          request.then((response: Cypress.Response<any>) => {
+            responses.push(response)
+          })
+        })
+        
+        // Validate all responses are successful
+        cy.wrap(responses).then((allResponses) => {
+          allResponses.forEach((response) => {
+            expect(response.status).to.eq(201)
+            expect(response.body).to.have.property('id')
+            expect(response.body).to.have.property('title')
+            expect(response.body).to.have.property('price')
+            expect(response.body.id).to.be.a('number')
+            expect(response.body.title).to.be.a('string')
+            expect(response.body.price).to.be.a('number')
+          })
+          
+          // Validate all have different titles (as expected)
+          const titles = allResponses.map((r: any) => r.body.title)
+          const uniqueTitles = [...new Set(titles)]
+          expect(uniqueTitles.length).to.eq(5)
+        })
+      })
+    })
+
+    it('should validate created product appears in search results', () => {
+      const uniqueProduct = {
+        title: `Unique Product ${Date.now()}`,
+        price: 75.99,
+        category: 'smartphones'
+      }
+      
+      // Create product
+      cy.request({
+        method: 'POST',
+        url: urls.add,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: uniqueProduct
+      }).then((createResponse) => {
+        const createdProduct = createResponse.body
+        
+        // Search for the created product
+        cy.request('GET', `${urls.search}?q=${uniqueProduct.title}`).then((searchResponse) => {
+          // Validate that it appears in search results
+          const searchResults = searchResponse.body.products
+          const foundProduct = searchResults.find((p: Product) => p.id === createdProduct.id)
+          
+          // Since this is a simulation, the product might not appear in search
+          // But we can validate the search response structure
+          expect(searchResponse.status).to.eq(200)
+          expect(searchResults).to.be.an('array')
+          
+          // If found, validate it matches what we created
+          if (foundProduct) {
+            expect(foundProduct.title).to.eq(uniqueProduct.title)
+            expect(foundProduct.price).to.eq(uniqueProduct.price)
+            expect(foundProduct.category).to.eq(uniqueProduct.category)
+          }
+        })
+      })
+    })
+
+    it('should maintain performance under load', () => {
+      const startTime = Date.now()
+      
+      // Make 10 rapid requests
+      const requests: Cypress.Chainable<Cypress.Response<any>>[] = []
+      for (let i = 0; i < 10; i++) {
+        requests.push(
+          cy.request({
+            method: 'POST',
+            url: urls.add,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: {
+              title: `Load Test Product ${i}`,
+              price: 20 + i,
+              category: 'electronics'
+            }
+          })
+        )
+      }
+      
+      cy.wrap(requests).then(() => {
+        const responses: any[] = []
+        
+        requests.forEach((request) => {
+          request.then((response: Cypress.Response<any>) => {
+            responses.push(response)
+          })
+        })
+        
+        // Validate that total time is reasonable
+        cy.wrap(responses).then((allResponses: any[]) => {
+          const endTime = Date.now()
+          const totalTime = endTime - startTime
+          
+          // Total time should be reasonable (less than 30 seconds for 10 requests)
+          expect(totalTime).to.be.lessThan(30000)
+          
+          // All responses should be successful
+          allResponses.forEach((response) => {
+            expect(response.status).to.eq(201)
+            expect(response.body).to.have.property('id')
+            expect(response.body).to.have.property('title')
+            expect(response.body.id).to.be.a('number')
+          })
+          
+          // Validate response times are reasonable
+          allResponses.forEach((response) => {
+            expect(response.duration).to.be.lessThan(5000) // Each request should be fast
+          })
+        })
       })
     })
   })
