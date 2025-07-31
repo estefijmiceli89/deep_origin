@@ -1,0 +1,22 @@
+{
+  "name": "em_deep_origin-final",
+  "version": "1.0.0",
+  "description": "API Testing with Cypress and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:api": "cypress run --spec 'cypress/e2e/api/**/*.cy.ts'",
+    "test:products": "cypress run --spec 'cypress/e2e/api/products/**/*.cy.ts'",
+    "test:headless": "cypress run --headless",
+    "test:headed": "cypress run --headed"
+  },
+  "keywords": ["cypress", "api-testing", "typescript", "automation"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.6.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
