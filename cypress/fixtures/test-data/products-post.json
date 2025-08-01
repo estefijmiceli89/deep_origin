@@ -81,7 +81,7 @@
   "constraintsTest": {
     "validConstraints": {
       "title": "Constraints Test Product",
-      "price": 100.00,
+      "price": 100.0,
       "discountPercentage": 25.5,
       "rating": 4.8,
       "stock": 100
@@ -138,4 +138,4 @@
       }
     }
   }
-} 
+}

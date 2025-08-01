@@ -96,7 +96,7 @@
     "updateFields": {
       "title": "Validation Test Product",
       "description": "Product for validation testing",
-      "price": 150.00,
+      "price": 150.0,
       "discountPercentage": 20.5,
       "rating": 4.5,
       "stock": 50,
@@ -143,4 +143,4 @@
       }
     }
   }
-} 
+}

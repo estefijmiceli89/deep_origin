@@ -86,12 +86,7 @@
       "description": "XSS attempts"
     },
     "unicodeQueries": {
-      "queries": [
-        "📱 phone",
-        "💄 beauty",
-        "🪑 furniture",
-        "🎵 music"
-      ],
+      "queries": ["📱 phone", "💄 beauty", "🪑 furniture", "🎵 music"],
       "description": "Unicode and emoji queries"
     },
     "multipleSpaces": {
@@ -119,7 +114,16 @@
     "responseTimeLimit": 3000,
     "minProductCount": 0,
     "maxProductCount": 100,
-    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating"],
+    "requiredFields": [
+      "id",
+      "title",
+      "description",
+      "price",
+      "category",
+      "brand",
+      "stock",
+      "rating"
+    ],
     "dataTypes": {
       "id": "number",
       "title": "string",
@@ -157,4 +161,4 @@
     "invalidParameters": [400, 500],
     "error": [400, 500]
   }
-} 
+}

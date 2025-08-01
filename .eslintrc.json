@@ -16,11 +16,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "cypress",
-    "prettier"
-  ],
+  "plugins": ["@typescript-eslint", "cypress", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "@typescript-eslint/no-unused-vars": "error",
@@ -38,4 +34,4 @@
       }
     }
   ]
-} 
+}

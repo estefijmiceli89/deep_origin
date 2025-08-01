@@ -162,7 +162,16 @@
       "skip": 10,
       "sortBy": "price",
       "order": "desc",
-      "expectedFields": ["id", "title", "price", "description", "category", "brand", "stock", "rating"]
+      "expectedFields": [
+        "id",
+        "title",
+        "price",
+        "description",
+        "category",
+        "brand",
+        "stock",
+        "rating"
+      ]
     },
     "allParameters": {
       "limit": 5,
@@ -221,7 +230,16 @@
     "responseTimeLimit": 3000,
     "minProductCount": 1,
     "maxProductCount": 100,
-    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating"],
+    "requiredFields": [
+      "id",
+      "title",
+      "description",
+      "price",
+      "category",
+      "brand",
+      "stock",
+      "rating"
+    ],
     "dataTypes": {
       "id": "number",
       "title": "string",
@@ -254,4 +272,4 @@
     "title,description,category",
     "price,rating,brand"
   ]
-} 
+}

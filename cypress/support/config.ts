@@ -21,30 +21,30 @@ export const API_CONFIG = {
       delete: (id: number | string) => `/products/${id}`,
     },
   },
-};
+}
 
 // Get current environment (default to development)
 export const getCurrentEnvironment = (): string => {
-  return Cypress.env('ENV') || 'development';
-};
+  return Cypress.env('ENV') || 'development'
+}
 
 // Get base URL for current environment
 export const getBaseUrl = (): string => {
-  const env = getCurrentEnvironment();
+  const env = getCurrentEnvironment()
   return (
     API_CONFIG.baseUrl[env as keyof typeof API_CONFIG.baseUrl] ||
     API_CONFIG.baseUrl.development
-  );
-};
+  )
+}
 
 // Get full URL for an endpoint
 export const getApiUrl = (endpoint: string): string => {
-  return `${getBaseUrl()}${endpoint}`;
-};
+  return `${getBaseUrl()}${endpoint}`
+}
 
 // Get product endpoint URLs
 export const getProductUrls = () => {
-  const baseUrl = getBaseUrl();
+  const baseUrl = getBaseUrl()
   return {
     getAll: `${baseUrl}${API_CONFIG.endpoints.products.getAll}`,
     getSingle: (id: number | string) =>
@@ -59,5 +59,5 @@ export const getProductUrls = () => {
       `${baseUrl}${API_CONFIG.endpoints.products.update(id)}`,
     delete: (id: number | string) =>
       `${baseUrl}${API_CONFIG.endpoints.products.delete(id)}`,
-  };
-};
+  }
+}

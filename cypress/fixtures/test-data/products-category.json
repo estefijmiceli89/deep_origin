@@ -82,7 +82,18 @@
     "responseTimeLimit": 3000,
     "minProductCount": 1,
     "maxProductCount": 50,
-    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating", "images", "thumbnail"],
+    "requiredFields": [
+      "id",
+      "title",
+      "description",
+      "price",
+      "category",
+      "brand",
+      "stock",
+      "rating",
+      "images",
+      "thumbnail"
+    ],
     "dataTypes": {
       "id": "number",
       "title": "string",
@@ -145,4 +156,4 @@
       }
     }
   }
-} 
+}
