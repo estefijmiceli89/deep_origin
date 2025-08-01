@@ -1,0 +1,141 @@
+{
+  "minimalProduct": {
+    "title": "Test Product"
+  },
+  "completeProduct": {
+    "title": "Complete Test Product",
+    "description": "A comprehensive test product with all fields",
+    "price": 99.99,
+    "discountPercentage": 10.5,
+    "rating": 4.5,
+    "stock": 50,
+    "brand": "TestBrand",
+    "category": "electronics",
+    "thumbnail": "https://example.com/thumbnail.jpg",
+    "images": [
+      "https://example.com/image1.jpg",
+      "https://example.com/image2.jpg"
+    ]
+  },
+  "structureTestProduct": {
+    "title": "Structure Test Product",
+    "price": 25.99,
+    "category": "smartphones"
+  },
+  "edgeCases": {
+    "emptyTitle": {
+      "title": "",
+      "price": 10.99
+    },
+    "longTitle": {
+      "title": "A very long title that exceeds normal limits and contains many characters to test the API's handling of extremely long input values. This title is designed to push the boundaries of what the API can handle and validate that it properly processes or rejects titles that are too long for normal use cases. The purpose is to ensure that the API has proper validation and error handling for edge cases where users might input extremely long text that could potentially cause issues with database storage, UI rendering, or other system components. This test helps verify that the API maintains stability and proper behavior even when confronted with unusual or extreme input scenarios.",
+      "price": 15.99
+    },
+    "specialCharacters": {
+      "title": "Product with special chars: !@#$%^&*()_+-=[]{}|;:,.<>?",
+      "price": 20.99
+    },
+    "emojiUnicode": {
+      "title": "Product with emoji 🚀🎉 and unicode ñáéíóú",
+      "price": 30.99
+    },
+    "extremePrice": {
+      "title": "Extreme Price Product",
+      "price": 0.01
+    },
+    "negativePrice": {
+      "title": "Negative Price Product",
+      "price": -10.99
+    },
+    "largePrice": {
+      "title": "Large Price Product",
+      "price": 999999.99
+    },
+    "emptyImages": {
+      "title": "Product with Empty Images",
+      "price": 25.99,
+      "images": []
+    }
+  },
+  "performanceTest": {
+    "baseProduct": {
+      "title": "Load Test Product",
+      "price": 20,
+      "category": "electronics"
+    }
+  },
+  "concurrentTest": {
+    "baseProduct": {
+      "title": "Concurrent Product",
+      "price": 10,
+      "category": "smartphones"
+    }
+  },
+  "searchTest": {
+    "uniqueProduct": {
+      "title": "Unique Product",
+      "price": 75.99,
+      "category": "smartphones"
+    }
+  },
+  "constraintsTest": {
+    "validConstraints": {
+      "title": "Constraints Test Product",
+      "price": 100.00,
+      "discountPercentage": 25.5,
+      "rating": 4.8,
+      "stock": 100
+    }
+  },
+  "headersTest": {
+    "basicProduct": {
+      "title": "Headers Test Product",
+      "price": 45.99
+    },
+    "performanceProduct": {
+      "title": "Performance Test Product",
+      "price": 55.99
+    },
+    "customHeadersProduct": {
+      "title": "Custom Headers Product",
+      "price": 65.99
+    },
+    "noContentTypeProduct": {
+      "title": "No Content-Type Product",
+      "price": 95.99
+    }
+  },
+  "malformedData": {
+    "invalidJson": "{\"title\": \"Invalid JSON\", \"price\": 99.99,}"
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "expectedStatus": 201,
+    "requiredFields": ["id", "title"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "price": "number",
+      "description": "string",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      }
+    }
+  }
+} 

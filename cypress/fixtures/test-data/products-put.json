@@ -1,0 +1,146 @@
+{
+  "basicUpdates": {
+    "titleUpdate": {
+      "productId": 1,
+      "newTitle": "iPhone Galaxy +1"
+    },
+    "multipleFieldsUpdate": {
+      "productId": 2,
+      "newTitle": "Updated Product Title",
+      "newPrice": 299.99,
+      "newDescription": "Updated product description with new details",
+      "newCategory": "electronics"
+    },
+    "completeUpdate": {
+      "productId": 3,
+      "updateFields": {
+        "title": "Complete Updated Product",
+        "description": "A comprehensive updated product with all fields modified",
+        "price": 199.99,
+        "discountPercentage": 15.5,
+        "rating": 4.8,
+        "stock": 75,
+        "brand": "UpdatedBrand",
+        "category": "smartphones",
+        "thumbnail": "https://example.com/updated-thumbnail.jpg",
+        "images": [
+          "https://example.com/updated-image1.jpg",
+          "https://example.com/updated-image2.jpg",
+          "https://example.com/updated-image3.jpg"
+        ]
+      }
+    }
+  },
+  "edgeCases": {
+    "emptyBody": {
+      "productId": 4,
+      "description": "Update with empty body"
+    },
+    "longTitle": {
+      "productId": 5,
+      "longTitle": "A very long title that exceeds normal limits and contains many characters to test the API's handling of extremely long input values. This title is designed to push the boundaries of what the API can handle and validate that it properly processes or rejects titles that are too long for normal use cases. The purpose is to ensure that the API has proper validation and error handling for edge cases where users might input extremely long text that could potentially cause issues with database storage, UI rendering, or other system components. This test helps verify that the API maintains stability and proper behavior even when confronted with unusual or extreme input scenarios."
+    },
+    "specialCharacters": {
+      "productId": 6,
+      "specialTitle": "Product with special chars: !@#$%^&*()_+-=[]{}|;:,.<>?"
+    },
+    "emojiUnicode": {
+      "productId": 7,
+      "emojiTitle": "Product with emoji 🚀🎉 and unicode ñáéíóú"
+    },
+    "extremePrice": {
+      "productId": 8,
+      "extremePrice": 0.01
+    },
+    "negativePrice": {
+      "productId": 9,
+      "negativePrice": -10.99
+    },
+    "invalidId": {
+      "invalidId": "abc",
+      "expectedStatus": [400, 404, 500]
+    },
+    "nonExistentId": {
+      "nonExistentId": 99999,
+      "expectedStatus": [404, 500]
+    }
+  },
+  "headersTest": {
+    "basicUpdate": {
+      "productId": 10,
+      "newTitle": "Headers Test Product"
+    },
+    "performanceUpdate": {
+      "productId": 11,
+      "newTitle": "Performance Test Product"
+    },
+    "customHeadersUpdate": {
+      "productId": 12,
+      "newTitle": "Custom Headers Product"
+    },
+    "noContentTypeUpdate": {
+      "productId": 13,
+      "newTitle": "No Content-Type Product"
+    }
+  },
+  "concurrentTest": {
+    "productId": 14,
+    "baseTitle": "Concurrent Update Product"
+  },
+  "performanceTest": {
+    "productId": 15,
+    "baseTitle": "Load Test Product"
+  },
+  "validationTest": {
+    "productId": 16,
+    "updateFields": {
+      "title": "Validation Test Product",
+      "description": "Product for validation testing",
+      "price": 150.00,
+      "discountPercentage": 20.5,
+      "rating": 4.5,
+      "stock": 50,
+      "brand": "TestBrand",
+      "category": "electronics",
+      "thumbnail": "https://example.com/validation-thumbnail.jpg",
+      "images": [
+        "https://example.com/validation-image1.jpg",
+        "https://example.com/validation-image2.jpg"
+      ]
+    }
+  },
+  "malformedData": {
+    "productId": 17,
+    "invalidJson": "{\"title\": \"Invalid JSON\", \"price\": 99.99,}"
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "expectedStatus": 200,
+    "requiredFields": ["id", "title"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "price": "number",
+      "description": "string",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      }
+    }
+  }
+} 

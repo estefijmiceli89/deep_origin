@@ -9,14 +9,30 @@
     "test:api": "cypress run --spec 'cypress/e2e/api/**/*.cy.ts'",
     "test:products": "cypress run --spec 'cypress/e2e/api/products/**/*.cy.ts'",
     "test:headless": "cypress run --headless",
-    "test:headed": "cypress run --headed"
+    "test:headed": "cypress run --headed",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
-  "keywords": ["cypress", "api-testing", "typescript", "automation"],
+  "keywords": [
+    "cypress",
+    "api-testing",
+    "typescript",
+    "automation"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
     "cypress": "^13.6.0",
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-cypress": "^2.15.2",
+    "eslint-plugin-prettier": "^5.5.3",
+    "prettier": "^3.6.2",
+    "typescript": "^5.0.0"
   }
 }

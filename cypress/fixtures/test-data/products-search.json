@@ -1,0 +1,160 @@
+{
+  "searchQueries": {
+    "phone": {
+      "query": "phone",
+      "description": "Search for phone products"
+    },
+    "beauty": {
+      "query": "beauty",
+      "description": "Search for beauty products"
+    },
+    "electronics": {
+      "query": "electronics",
+      "description": "Search for electronics products"
+    },
+    "iPhone": {
+      "query": "iPhone",
+      "description": "Search for iPhone products"
+    },
+    "wirelessHeadphones": {
+      "query": "wireless headphones",
+      "description": "Search for wireless headphones"
+    },
+    "laptop": {
+      "query": "laptop",
+      "description": "Search for laptop products"
+    },
+    "PHONE": {
+      "query": "PHONE",
+      "description": "Case insensitive search"
+    },
+    "smartphone": {
+      "query": "smartphone",
+      "description": "Search for smartphone products"
+    },
+    "nonexistent": {
+      "query": "nonexistentproduct12345",
+      "description": "Search for non-existent product"
+    },
+    "empty": {
+      "query": "",
+      "description": "Empty search query"
+    }
+  },
+  "pagination": {
+    "basic": {
+      "limit": 5,
+      "skip": 0,
+      "description": "Basic pagination"
+    },
+    "boundary": {
+      "limit": 1,
+      "skip": 0,
+      "description": "Boundary case with limit=1"
+    },
+    "largeLimit": {
+      "limit": 9999,
+      "description": "Very large limit"
+    },
+    "negativeValues": {
+      "limit": -5,
+      "skip": -10,
+      "description": "Negative values"
+    }
+  },
+  "edgeCases": {
+    "veryLongQuery": {
+      "query": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "description": "Very long search query"
+    },
+    "sqlInjection": {
+      "attempts": [
+        "1' OR '1'='1",
+        "1; DROP TABLE products;",
+        "1' UNION SELECT * FROM users--",
+        "1' AND 1=1--"
+      ],
+      "description": "SQL injection attempts"
+    },
+    "xssAttempts": {
+      "attempts": [
+        "<script>alert('xss')</script>",
+        "javascript:alert('xss')",
+        "<img src=x onerror=alert('xss')>",
+        "';alert('xss');//"
+      ],
+      "description": "XSS attempts"
+    },
+    "unicodeQueries": {
+      "queries": [
+        "📱 phone",
+        "💄 beauty",
+        "🪑 furniture",
+        "🎵 music"
+      ],
+      "description": "Unicode and emoji queries"
+    },
+    "multipleSpaces": {
+      "query": "   phone   ",
+      "description": "Multiple spaces in query"
+    },
+    "emptyParameters": {
+      "query": "",
+      "limit": "",
+      "skip": "",
+      "description": "Empty query parameters"
+    },
+    "invalidLimit": {
+      "query": "phone",
+      "limit": "abc",
+      "description": "Invalid limit parameter"
+    },
+    "invalidSkip": {
+      "query": "phone",
+      "skip": "xyz",
+      "description": "Invalid skip parameter"
+    }
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "minProductCount": 0,
+    "maxProductCount": 100,
+    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "description": "string",
+      "price": "number",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      }
+    }
+  },
+  "searchableFields": {
+    "title": "Product title",
+    "description": "Product description",
+    "category": "Product category",
+    "brand": "Product brand"
+  },
+  "expectedStatusCodes": {
+    "success": 200,
+    "invalidParameters": [400, 500],
+    "error": [400, 500]
+  }
+} 

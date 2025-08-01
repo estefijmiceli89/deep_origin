@@ -1,0 +1,82 @@
+{
+  "expectedCategories": [
+    "beauty",
+    "fragrances",
+    "furniture",
+    "groceries",
+    "home-decoration",
+    "kitchen-accessories",
+    "laptops",
+    "mens-shirts",
+    "mens-shoes",
+    "mens-watches",
+    "mobile-accessories",
+    "motorcycle",
+    "skin-care",
+    "smartphones",
+    "sports-accessories",
+    "sunglasses",
+    "tablets",
+    "tops",
+    "vehicle",
+    "womens-bags",
+    "womens-dresses",
+    "womens-jewellery",
+    "womens-shoes",
+    "womens-watches"
+  ],
+  "validationRules": {
+    "minCount": 10,
+    "maxCount": 50,
+    "responseTimeLimit": 3000,
+    "minCategoryLength": 3,
+    "slugPattern": "^[a-z0-9-]+$",
+    "noLeadingTrailingHyphen": "^-|-$",
+    "noConsecutiveHyphens": "--",
+    "noUppercasePattern": "[A-Z]",
+    "noSpecialCharsPattern": "[^a-z0-9-]"
+  },
+  "queryParameters": {
+    "valid": {
+      "param": "value"
+    },
+    "invalid": {
+      "invalid": "param"
+    },
+    "empty": {},
+    "specialCharacters": {
+      "param": "!@#$%^&*()"
+    },
+    "longParameter": {
+      "param": "a very long parameter that exceeds normal limits and contains many characters to test the API's handling of extremely long input values. This parameter is designed to push the boundaries of what the API can handle and validate that it properly processes or rejects parameters that are too long for normal use cases. The purpose is to ensure that the API has proper validation and error handling for edge cases where users might input extremely long text that could potentially cause issues with database storage, UI rendering, or other system components. This test helps verify that the API maintains stability and proper behavior even when confronted with unusual or extreme input scenarios."
+    },
+    "sqlInjection": {
+      "param": "1' OR '1'='1"
+    },
+    "xssAttempt": {
+      "param": "<script>alert('xss')</script>"
+    },
+    "emojiUnicode": {
+      "param": "🚀🎉🌟"
+    },
+    "multipleSpaces": {
+      "param": "multiple spaces"
+    }
+  },
+  "headers": {
+    "customHeaders": {
+      "Accept": "application/json",
+      "User-Agent": "Cypress-Test"
+    },
+    "expectedHeaders": {
+      "contentType": "application/json"
+    }
+  },
+  "concurrentTest": {
+    "requestCount": 3
+  },
+  "structureValidation": {
+    "dataType": "string",
+    "arrayType": "array"
+  }
+} 

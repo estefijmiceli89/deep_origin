@@ -1,0 +1,89 @@
+{
+  "expectedCategories": {
+    "beauty": {
+      "slug": "beauty",
+      "name": "Beauty",
+      "url": "https://dummyjson.com/products/category/beauty"
+    },
+    "furniture": {
+      "slug": "furniture",
+      "name": "Furniture",
+      "url": "https://dummyjson.com/products/category/furniture"
+    },
+    "fragrances": {
+      "slug": "fragrances",
+      "name": "Fragrances",
+      "url": "https://dummyjson.com/products/category/fragrances"
+    },
+    "groceries": {
+      "slug": "groceries",
+      "name": "Groceries",
+      "url": "https://dummyjson.com/products/category/groceries"
+    },
+    "smartphones": {
+      "slug": "smartphones",
+      "name": "Smartphones",
+      "url": "https://dummyjson.com/products/category/smartphones"
+    }
+  },
+  "validationRules": {
+    "minCount": 5,
+    "maxCount": 50,
+    "responseTimeLimit": 2000,
+    "urlPattern": "https://dummyjson.com/products/category/",
+    "slugPattern": "^[a-z-]+$"
+  },
+  "queryParameters": {
+    "valid": {
+      "limit": "10",
+      "skip": "0"
+    },
+    "invalid": {
+      "invalid": "param",
+      "test": "value"
+    },
+    "empty": {},
+    "specialCharacters": {
+      "param": "test&param2=value",
+      "param2": "value"
+    },
+    "longParameter": {
+      "param": "a very long parameter that exceeds normal limits and contains many characters to test the API's handling of extremely long input values. This parameter is designed to push the boundaries of what the API can handle and validate that it properly processes or rejects parameters that are too long for normal use cases. The purpose is to ensure that the API has proper validation and error handling for edge cases where users might input extremely long text that could potentially cause issues with database storage, UI rendering, or other system components. This test helps verify that the API maintains stability and proper behavior even when confronted with unusual or extreme input scenarios."
+    },
+    "sqlInjection": {
+      "param": "1; DROP TABLE categories;--"
+    },
+    "xssAttempt": {
+      "param": "<script>alert(\"xss\")</script>"
+    },
+    "emojiUnicode": {
+      "param": "🚀",
+      "param2": "测试"
+    },
+    "multipleSpaces": {
+      "param": "test value",
+      "param2": "another  value"
+    }
+  },
+  "headers": {
+    "customHeaders": {
+      "Accept": "application/json",
+      "User-Agent": "Cypress-Test"
+    },
+    "expectedHeaders": {
+      "contentType": "application/json",
+      "corsOrigin": "*"
+    }
+  },
+  "concurrentTest": {
+    "requestCount": 3
+  },
+  "structureValidation": {
+    "requiredFields": ["slug", "name", "url"],
+    "dataTypes": {
+      "slug": "string",
+      "name": "string",
+      "url": "string"
+    }
+  }
+} 

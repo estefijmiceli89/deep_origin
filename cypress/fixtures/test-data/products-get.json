@@ -1,0 +1,257 @@
+{
+  "defaultResponse": {
+    "limit": 30,
+    "skip": 0,
+    "minProductCount": 30,
+    "maxProductCount": 30
+  },
+  "pagination": {
+    "smallLimit": {
+      "limit": 10,
+      "skip": 5,
+      "expectedCount": 10
+    },
+    "largeLimit": {
+      "limit": 50,
+      "skip": 20,
+      "expectedCount": 50
+    },
+    "boundaryLimit": {
+      "limit": 1,
+      "skip": 0,
+      "expectedCount": 1
+    },
+    "largeSkip": {
+      "limit": 10,
+      "skip": 1000,
+      "expectedCount": 0
+    },
+    "negativeValues": {
+      "limit": -5,
+      "skip": -10,
+      "expectedCount": 30
+    },
+    "decimalValues": {
+      "limit": 0.1,
+      "skip": 0.5,
+      "expectedCount": 30
+    },
+    "extremelyLargeValues": {
+      "limit": 9999,
+      "skip": 5000,
+      "expectedCount": 9999
+    },
+    "emptyParameters": {
+      "limit": "",
+      "skip": "",
+      "expectedLimit": 0,
+      "expectedSkip": null,
+      "expectedCount": 0
+    }
+  },
+  "fieldSelection": {
+    "basicFields": {
+      "fields": "title,price,id",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category", "brand"]
+    },
+    "multipleFields": {
+      "fields": "title,description,category",
+      "expectedFields": ["id", "title", "description", "category"],
+      "unexpectedFields": ["price", "brand", "stock"]
+    },
+    "singleField": {
+      "fields": "title",
+      "expectedFields": ["id", "title"],
+      "unexpectedFields": ["description", "price", "category"]
+    },
+    "emptySelect": {
+      "fields": "",
+      "expectedFields": ["id", "title", "description", "price"],
+      "unexpectedFields": []
+    },
+    "invalidField": {
+      "fields": "invalid_field",
+      "expectedFields": ["id"],
+      "unexpectedFields": ["title", "description", "price"]
+    },
+    "mixedValidInvalid": {
+      "fields": "title,invalid_field,price",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category"]
+    }
+  },
+  "sorting": {
+    "titleAsc": {
+      "sortBy": "title",
+      "order": "asc",
+      "description": "Sort by title in ascending order"
+    },
+    "titleDesc": {
+      "sortBy": "title",
+      "order": "desc",
+      "description": "Sort by title in descending order"
+    },
+    "priceAsc": {
+      "sortBy": "price",
+      "order": "asc",
+      "description": "Sort by price in ascending order"
+    },
+    "priceDesc": {
+      "sortBy": "price",
+      "order": "desc",
+      "description": "Sort by price in descending order"
+    },
+    "ratingDesc": {
+      "sortBy": "rating",
+      "order": "desc",
+      "description": "Sort by rating in descending order"
+    },
+    "stockAsc": {
+      "sortBy": "stock",
+      "order": "asc",
+      "description": "Sort by stock in ascending order"
+    },
+    "brandAsc": {
+      "sortBy": "brand",
+      "order": "asc",
+      "description": "Sort by brand in ascending order"
+    },
+    "categoryDesc": {
+      "sortBy": "category",
+      "order": "desc",
+      "description": "Sort by category in descending order"
+    },
+    "invalidSortBy": {
+      "sortBy": "invalid_field",
+      "order": "asc",
+      "description": "Invalid sort field"
+    },
+    "invalidOrder": {
+      "sortBy": "title",
+      "order": "invalid",
+      "expectedStatus": 400,
+      "description": "Invalid order parameter"
+    },
+    "emptySortBy": {
+      "sortBy": "",
+      "order": "asc",
+      "description": "Empty sortBy parameter"
+    },
+    "emptyOrder": {
+      "sortBy": "title",
+      "order": "",
+      "description": "Empty order parameter"
+    },
+    "caseInsensitiveOrder": {
+      "sortBy": "title",
+      "order": "ASC",
+      "description": "Case insensitive order parameter"
+    }
+  },
+  "combinedParameters": {
+    "paginationAndFields": {
+      "limit": 10,
+      "skip": 10,
+      "fields": "title,price",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category"]
+    },
+    "sortingAndPagination": {
+      "limit": 10,
+      "skip": 10,
+      "sortBy": "price",
+      "order": "desc",
+      "expectedFields": ["id", "title", "price", "description", "category", "brand", "stock", "rating"]
+    },
+    "allParameters": {
+      "limit": 5,
+      "skip": 10,
+      "fields": "title,price,id",
+      "sortBy": "price",
+      "order": "desc",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category", "brand"]
+    },
+    "largeValuesCombined": {
+      "limit": 9999,
+      "skip": 5000,
+      "fields": "title,price",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category"]
+    },
+    "negativeValuesCombined": {
+      "limit": -5,
+      "skip": -10,
+      "fields": "title,price",
+      "expectedFields": ["id", "title", "price"],
+      "unexpectedFields": ["description", "category"]
+    }
+  },
+  "edgeCases": {
+    "invalidLimit": {
+      "limit": "abc",
+      "expectedStatus": 400,
+      "expectedMessage": "Invalid"
+    },
+    "invalidSkip": {
+      "skip": "xyz",
+      "expectedStatus": 400,
+      "expectedMessage": "Invalid"
+    },
+    "multipleInvalid": {
+      "limit": "abc",
+      "skip": "xyz",
+      "sortBy": "invalid",
+      "expectedStatus": 400,
+      "expectedMessage": "Invalid"
+    },
+    "limitZero": {
+      "limit": 0,
+      "expectedBehavior": "Return all products"
+    },
+    "skipEqualToTotal": {
+      "description": "Skip equal to total products count"
+    },
+    "skipGreaterThanTotal": {
+      "description": "Skip greater than total products count"
+    }
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "minProductCount": 1,
+    "maxProductCount": 100,
+    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "description": "string",
+      "price": "number",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      }
+    }
+  },
+  "fieldCombinations": [
+    "title,price",
+    "id,title,price,stock",
+    "title,description,category",
+    "price,rating,brand"
+  ]
+} 

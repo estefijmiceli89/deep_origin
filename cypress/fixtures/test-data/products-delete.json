@@ -1,0 +1,116 @@
+{
+  "basicDeletion": {
+    "validProduct": {
+      "productId": 1,
+      "description": "Delete a valid product"
+    },
+    "completeProduct": {
+      "productId": 2,
+      "description": "Delete a product and validate all fields"
+    }
+  },
+  "edgeCases": {
+    "invalidId": {
+      "invalidId": "abc",
+      "expectedStatus": [400, 404, 500]
+    },
+    "nonExistentId": {
+      "nonExistentId": 99999,
+      "expectedStatus": [404, 500]
+    },
+    "negativeId": {
+      "negativeId": -1,
+      "expectedStatus": [400, 404, 500]
+    },
+    "zeroId": {
+      "zeroId": 0,
+      "expectedStatus": [400, 404, 500]
+    },
+    "largeId": {
+      "largeId": 999999999,
+      "expectedStatus": [404, 500]
+    },
+    "decimalId": {
+      "decimalId": 1.5,
+      "expectedStatus": [400, 404, 500]
+    }
+  },
+  "headersTest": {
+    "basicDelete": {
+      "productId": 3,
+      "description": "Basic delete with header validation"
+    },
+    "performanceDelete": {
+      "productId": 4,
+      "description": "Delete for performance testing"
+    },
+    "customHeadersDelete": {
+      "productId": 5,
+      "description": "Delete with custom headers"
+    },
+    "noHeadersDelete": {
+      "productId": 6,
+      "description": "Delete without any headers"
+    }
+  },
+  "concurrentTest": {
+    "productIds": [7, 8, 9],
+    "description": "Concurrent deletions of different products"
+  },
+  "performanceTest": {
+    "productIds": [10, 11, 12, 13, 14],
+    "description": "Performance testing with multiple deletions"
+  },
+  "validationTest": {
+    "productId": 15,
+    "description": "Validation of data types and constraints"
+  },
+  "timestampTest": {
+    "productId": 16,
+    "description": "Validation of deletedOn timestamp"
+  },
+  "multipleDeleteTest": {
+    "productId": 17,
+    "description": "Multiple deletions of the same product"
+  },
+  "structureTest": {
+    "productId": 1,
+    "description": "Validation of complete product structure after deletion"
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "expectedStatus": 200,
+    "requiredFields": ["id", "title", "isDeleted", "deletedOn"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "description": "string",
+      "price": "number",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number",
+      "isDeleted": "boolean",
+      "deletedOn": "string"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      },
+      "isDeleted": {
+        "value": true,
+        "description": "isDeleted should always be true for deleted products"
+      }
+    }
+  }
+} 

@@ -1,0 +1,148 @@
+{
+  "validCategories": {
+    "smartphones": {
+      "name": "smartphones",
+      "expectedProductCount": 16,
+      "description": "Mobile phones and smartphones"
+    },
+    "beauty": {
+      "name": "beauty",
+      "expectedProductCount": 5,
+      "description": "Beauty and personal care products"
+    },
+    "furniture": {
+      "name": "furniture",
+      "expectedProductCount": 5,
+      "description": "Home furniture and decor"
+    },
+    "groceries": {
+      "name": "groceries",
+      "expectedProductCount": 5,
+      "description": "Food and grocery items"
+    },
+    "laptops": {
+      "name": "laptops",
+      "expectedProductCount": 5,
+      "description": "Laptop computers and accessories"
+    }
+  },
+  "invalidCategories": {
+    "nonExistent": {
+      "name": "non-existent-category",
+      "expectedStatus": [200],
+      "description": "Category that doesn't exist"
+    },
+    "empty": {
+      "name": "",
+      "expectedStatus": [404],
+      "description": "Empty category parameter"
+    },
+    "specialCharacters": {
+      "name": "smartphones!@#",
+      "expectedStatus": [200],
+      "description": "Category with special characters"
+    },
+    "spaces": {
+      "name": "smart phones",
+      "expectedStatus": [200],
+      "description": "Category with spaces"
+    },
+    "uppercase": {
+      "name": "SMARTPHONES",
+      "expectedStatus": [200],
+      "description": "Category with uppercase letters"
+    },
+    "longName": {
+      "name": "a very long category name that exceeds normal limits and contains many characters to test the API's handling of extremely long input values. This category name is designed to push the boundaries of what the API can handle and validate that it properly processes or rejects names that are too long for normal use cases. The purpose is to ensure that the API has proper validation and error handling for edge cases where users might input extremely long text that could potentially cause issues with database storage, UI rendering, or other system components. This test helps verify that the API maintains stability and proper behavior even when confronted with unusual or extreme input scenarios.",
+      "expectedStatus": [200],
+      "description": "Very long category name"
+    },
+    "sqlInjection": {
+      "name": "smartphones' OR '1'='1",
+      "expectedStatus": [200],
+      "description": "SQL injection attempt"
+    },
+    "xssAttempt": {
+      "name": "<script>alert(\"xss\")</script>",
+      "expectedStatus": [404],
+      "description": "XSS attempt"
+    },
+    "emojiUnicode": {
+      "name": "smartphones🚀🎉",
+      "expectedStatus": [200],
+      "description": "Category with emoji and unicode"
+    },
+    "multipleSpaces": {
+      "name": "smart  phones",
+      "expectedStatus": [200],
+      "description": "Category with multiple spaces"
+    }
+  },
+  "validationRules": {
+    "responseTimeLimit": 3000,
+    "minProductCount": 1,
+    "maxProductCount": 50,
+    "requiredFields": ["id", "title", "description", "price", "category", "brand", "stock", "rating", "images", "thumbnail"],
+    "dataTypes": {
+      "id": "number",
+      "title": "string",
+      "description": "string",
+      "price": "number",
+      "category": "string",
+      "brand": "string",
+      "stock": "number",
+      "rating": "number",
+      "images": "array",
+      "thumbnail": "string"
+    },
+    "constraints": {
+      "price": {
+        "min": 0,
+        "description": "Price should be greater than 0"
+      },
+      "stock": {
+        "min": 0,
+        "description": "Stock should be at least 0"
+      },
+      "rating": {
+        "min": 0,
+        "max": 5,
+        "description": "Rating should be between 0 and 5"
+      }
+    }
+  },
+  "headers": {
+    "customHeaders": {
+      "Accept": "application/json",
+      "User-Agent": "Cypress-Test"
+    },
+    "expectedHeaders": {
+      "contentType": "application/json"
+    }
+  },
+  "concurrentTest": {
+    "requestCount": 3
+  },
+  "structureValidation": {
+    "responseFields": ["products", "total", "skip", "limit"],
+    "metadataTypes": {
+      "total": "number",
+      "skip": "number",
+      "limit": "number"
+    },
+    "metadataConstraints": {
+      "total": {
+        "min": 0,
+        "description": "Total should be at least 0"
+      },
+      "skip": {
+        "min": 0,
+        "description": "Skip should be at least 0"
+      },
+      "limit": {
+        "min": 0,
+        "description": "Limit should be at least 0"
+      }
+    }
+  }
+} 
